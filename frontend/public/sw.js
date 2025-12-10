@@ -20,10 +20,20 @@ self.addEventListener("install", (event) => {
 
 // Fetch event - serve from cache, fallback to network
 self.addEventListener("fetch", (event) => {
+  // Skip service worker for API calls and external resources
+  if (event.request.url.includes('/api/') || 
+      event.request.url.startsWith('chrome-extension://') ||
+      !event.request.url.startsWith(self.location.origin)) {
+    return;
+  }
+  
   event.respondWith(
     caches.match(event.request).then((response) => {
       // Return cached version or fetch from network
-      return response || fetch(event.request);
+      return response || fetch(event.request).catch(() => {
+        // Return offline page or fallback if fetch fails
+        return new Response('Offline', { status: 503 });
+      });
     })
   );
 });
