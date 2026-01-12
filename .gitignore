@@ -75,3 +75,14 @@ htmlcov/
 *.bak
 *.tmp
 .cache/
+
+# Private documentation (keep local only)
+IMPLEMENTATION_DETAILS.md
+PROJECT_STATUS.md
+QUICK_START.md
+STATUS_SUMMARY.md
+SETUP_GUIDE.md
+NEXT_STEPS.md
+CORS_FIX.md
+RUNNING_SERVICES.md
+GITHUB_SETUP.md
